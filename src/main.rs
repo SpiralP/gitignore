@@ -89,6 +89,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     found_trees.push(tree);
   }
 
+  let mut first = true;
   for Tree { url, path, .. } in &found_trees {
     let blob_url = format!(
       "https://github.com/github/gitignore/blob/{}/{}",
@@ -103,11 +104,16 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let bytes = resp.bytes().await?;
     let mut stdout = stdout();
-    writeln!(stdout)?;
+
+    if !first {
+      writeln!(stdout)?;
+      writeln!(stdout)?;
+    } else {
+      first = false;
+    }
     writeln!(stdout, "# {}", blob_url)?;
     writeln!(stdout)?;
 
-    // TODO \r\n??
     stdout.write_all(&bytes)?;
 
     if !bytes.ends_with(b"\n\n") {
@@ -118,7 +124,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
       "# End of {}",
       Path::new(path).file_name().unwrap().to_string_lossy()
     )?;
-    writeln!(stdout)?;
   }
 
   if found_trees.is_empty() {
