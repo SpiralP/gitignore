@@ -127,7 +127,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
   }
 
   if found_trees.is_empty() {
-    eprintln!("No templates found!");
+    println!("No templates found!");
     let mut set: std::collections::HashSet<_> = gitignore_trees
       .iter()
       .filter_map(|Tree { path, .. }| Path::new(path).file_stem())
@@ -135,7 +135,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
       .collect();
     let mut vec: Vec<_> = set.drain().collect();
     vec.sort();
-    eprintln!("{}", vec.join(", "));
+    println!("{}", vec.join(", "));
   }
 
   Ok(())
