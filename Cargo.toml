@@ -2,7 +2,7 @@
 name = "gitignore"
 version = "0.1.0"
 authors = ["SpiralP <spiral.palmer@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 reqwest = { version = "0.11", features = ["json"] }

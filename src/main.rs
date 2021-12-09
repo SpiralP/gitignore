@@ -36,7 +36,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let client = Client::builder().user_agent(APP_USER_AGENT).build()?;
 
     let response = client
-        .get("https://api.github.com/repos/github/gitignore/git/trees/master?recursive=1")
+        .get("https://api.github.com/repos/github/gitignore/git/trees/HEAD?recursive=1")
         .send()
         .await?;
 
