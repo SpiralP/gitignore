@@ -1,11 +1,12 @@
-use reqwest::Client;
-use serde::{Deserialize, Serialize};
 use std::{
     env::args,
     error::Error,
     io::{stdout, Write},
     path::Path,
 };
+
+use reqwest::Client;
+use serde::{Deserialize, Serialize};
 
 static APP_USER_AGENT: &str = concat!(env!("CARGO_PKG_NAME"), "/", env!("CARGO_PKG_VERSION"));
 
@@ -86,7 +87,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
                     })
                     .unwrap_or(false)
             })
-            .ok_or_else(|| format!("couldn't find template for {}", arg))?;
+            .ok_or_else(|| format!("couldn't find template for {arg}"))?;
 
         found_trees.push(tree);
     }
@@ -113,7 +114,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         } else {
             first = false;
         }
-        writeln!(stdout, "# {}", blob_url)?;
+        writeln!(stdout, "# {blob_url}")?;
         writeln!(stdout)?;
 
         stdout.write_all(&bytes)?;
